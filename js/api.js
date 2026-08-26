@@ -1,10 +1,10 @@
 // --- Initialisation unique et sécurisée du client Supabase ---
-const SUPABASE_URL = window.ESAMAI_CONFIG?.supabaseUrl || 'https://etnssupdveppbfdrtmsp.supabase.co';
-const SUPABASE_KEY = window.ESAMAI_CONFIG?.supabaseKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnNzdXBkdmVwcGJmZHJ0bXNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NDQ0MTQsImV4cCI6MjEwMzMyMDQxNH0.f9DzbkDEyguQof-gR8WN3w9Tl_M-0S9oftpgxLVMViE';
+const ESAMAI_URL = window.ESAMAI_CONFIG?.supabaseUrl || 'https://etnssupdveppbfdrtmsp.supabase.co';
+const ESAMAI_KEY = window.ESAMAI_CONFIG?.supabaseKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnNzdXBkdmVwcGJmZHJ0bXNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NDQ0MTQsImV4cCI6MjEwMzMyMDQxNH0.f9DzbkDEyguQof-gR8WN3w9Tl_M-0S9oftpgxLVMViE';
 
-// Réutilisation de l'instance existante ou création si nécessaire
+// Stockage global sécurisé pour éviter tout doublon de variable
 if (!window.supabaseClient && window.supabase) {
-  window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  window.supabaseClient = window.supabase.createClient(ESAMAI_URL, ESAMAI_KEY);
 }
 
 const _supabase = window.supabaseClient;
