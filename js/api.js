@@ -1,13 +1,15 @@
-// Initialisation du client Supabase
-// (Assurez-vous que les variables SUPABASE_URL et SUPABASE_ANON_KEY sont bien définies)
+// --- Initialisation unique et sécurisée du client Supabase ---
 const SUPABASE_URL = window.ESAMAI_CONFIG?.supabaseUrl || 'https://etnssupdveppbfdrtmsp.supabase.co';
 const SUPABASE_KEY = window.ESAMAI_CONFIG?.supabaseKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnNzdXBkdmVwcGJmZHJ0bXNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NDQ0MTQsImV4cCI6MjEwMzMyMDQxNH0.f9DzbkDEyguQof-gR8WN3w9Tl_M-0S9oftpgxLVMViE';
 
-const _supabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);const supabaseUrl = window.ESAMAI_CONFIG?.supabaseUrl;
-const supabaseKey = window.ESAMAI_CONFIG?.supabaseKey;
+// Réutilisation de l'instance existante ou création si nécessaire
+if (!window.supabaseClient && window.supabase) {
+  window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const _supabase = window.supabaseClient;
 
+// --- API ESAMAÏ ---
 window.EsamiApi = {
   isReady() {
     return !!_supabase;
@@ -15,23 +17,27 @@ window.EsamiApi = {
 
   // --- AUTHENTIFICATION ---
   async adminSession() {
+    if (!_supabase) return null;
     const { data: { session } } = await _supabase.auth.getSession();
     return session;
   },
 
   async adminSignIn(email, password) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
     return data;
   },
 
   async adminSignOut() {
+    if (!_supabase) return;
     const { error } = await _supabase.auth.signOut();
     if (error) throw error;
   },
 
   // --- PRODUITS ---
   async adminFetchProducts() {
+    if (!_supabase) return [];
     const { data, error } = await _supabase
       .from('products')
       .select('*')
@@ -41,6 +47,7 @@ window.EsamiApi = {
   },
 
   async adminCreateProduct(payload) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const { data, error } = await _supabase
       .from('products')
       .insert([payload])
@@ -51,6 +58,7 @@ window.EsamiApi = {
   },
 
   async adminUpdateProduct(id, patch) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const { data, error } = await _supabase
       .from('products')
       .update(patch)
@@ -62,6 +70,7 @@ window.EsamiApi = {
   },
 
   async adminDeleteProduct(id) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const { error } = await _supabase
       .from('products')
       .delete()
@@ -71,8 +80,9 @@ window.EsamiApi = {
 
   // --- UPLOAD IMAGE ---
   async adminUploadProductImage(file, productId) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const ext = file.name.split('.').pop();
-    const filePath = `${productId}-${Date.now()}.${ext}`;
+    const filePath = `${productId || 'prod'}-${Date.now()}.${ext}`;
 
     const { error: uploadErr } = await _supabase.storage
       .from('product-images')
@@ -89,6 +99,7 @@ window.EsamiApi = {
 
   // --- COMMANDES ---
   async adminFetchOrders() {
+    if (!_supabase) return [];
     const { data, error } = await _supabase
       .from('orders')
       .select('*, order_items(*)')
@@ -98,6 +109,7 @@ window.EsamiApi = {
   },
 
   async adminUpdateOrderStatus(id, status) {
+    if (!_supabase) throw new Error("Client Supabase non initialisé");
     const { data, error } = await _supabase
       .from('orders')
       .update({ status })
