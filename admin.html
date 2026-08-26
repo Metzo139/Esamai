@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esamaï Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- AUTH VIEW -->
+  <div id="loginView" class="login-page">
+    <form id="loginForm" class="login-box">
+      <p class="logo-mark">ESAMAÏ</p>
+      <h1>Admin</h1>
+      <p class="hint">Connecte-toi pour gérer le menu et les commandes.</p>
+      <label>Email
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </label>
+      <label>Mot de passe
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </label>
+      <button type="submit" class="btn primary">Connexion</button>
+      <p id="loginError" class="error"></p>
+      <p id="configWarn" class="warn hidden">Configure d’abord la clé Supabase.</p>
+      <a class="back-link" href="esamai-site-v5.html">Retour au site</a>
+    </form>
+  </div>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="dashView" class="dash hidden">
+    <aside class="side">
+      <div class="side-brand">ESAMAÏ</div>
+      <nav class="side-nav">
+        <button class="nav-item active" data-tab="products" type="button">Produits</button>
+        <button class="nav-item" data-tab="orders" type="button">Commandes</button>
+      </nav>
+      <div class="side-foot">
+        <p id="adminUserLabel" class="user-mail"></p>
+        <a href="esamai-site-v5.html">Voir le site</a>
+        <button id="logoutBtn" type="button" class="btn ghost">Déconnexion</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="storageHelp" class="setup-banner">
+        <strong>Images :</strong> crée le bucket <code>product-images</code> (Public) dans Supabase → Storage.
+        <button type="button" id="copyStorageSql" class="btn ghost">Copier le SQL Storage</button>
+      </div>
+      
+      <!-- TAB PRODUITS -->
+      <section id="productsTab">
+        <header class="page-head">
+          <div>
+            <h2>Produits</h2>
+            <p>Ajoute, modifie prix, stock et photo.</p>
+          </div>
+          <button id="openCreateBtn" class="btn primary" type="button">+ Nouveau produit</button>
+        </header>
+
+        <div class="toolbar">
+          <input type="search" id="productSearch" placeholder="Rechercher...">
+          <select id="productCatFilter">
+            <option value="all">Toutes catégories</option>
+          </select>
+          <button id="refreshProducts" class="btn ghost" type="button">Rafraîchir</button>
+        </div>
+
+        <div id="productsGrid" class="products-grid"></div>
+        <p id="productsStatus" class="status"></p>
+      </section>
+
+      <!-- TAB COMMANDES -->
+      <section id="ordersTab" class="hidden">
+        <header class="page-head">
+          <div>
+            <h2>Commandes</h2>
+            <p>Suivi des commandes du site.</p>
+          </div>
+          <button id="refreshOrders" class="btn ghost" type="button">Rafraîchir</button>
+        </header>
+
+        <div class="toolbar">
+          <select id="orderStatusFilter">
+            <option value="all">Tous les statuts</option>
+            <option value="pending">En attente</option>
+            <option value="confirmed">Confirmée</option>
+            <option value="preparing">En préparation</option>
+            <option value="done">Terminée</option>
+            <option value="cancelled">Annulée</option>
+          </select>
+        </div>
+
+        <div id="ordersList" class="orders-list"></div>
+        <p id="ordersStatus" class="status"></p>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL PRODUIT -->
+  <div id="productModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <form id="productForm" class="modal-card">
+      <div class="modal-top">
+        <h3 id="productFormTitle">Nouveau produit</h3>
+        <button type="button" class="icon-close" data-close-modal aria-label="Fermer">×</button>
+      </div>
+
+      <input type="hidden" name="id" id="productId">
+
+      <div class="image-field">
+        <div class="image-preview" id="imagePreview">
+          <span>Aperçu image</span>
+        </div>
+        <div class="image-actions">
+          <label class="file-btn">
+            Choisir une image
+            <input type="file" id="productImageFile" accept="image/*" hidden>
+          </label>
+          <p class="tiny">JPG, PNG ou WEBP. L’image s’envoie vers Supabase Storage.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label class="full">Nom
+          <input type="text" name="name" required placeholder="Le Kassoumaï">
+        </label>
+        <label>Catégorie
+          <select name="category" required>
+            <option value="burgers">Burgers</option>
+            <option value="sandwichs">Sandwichs</option>
+            <option value="salades">Salades</option>
+            <option value="bols">Bols</option>
+            <option value="desserts">Desserts</option>
+            <option value="boissons">Boissons</option>
+          </select>
+        </label>
+        <label>Tag
+          <select name="tag">
+            <option value="">Aucun</option>
+            <option value="bestseller">Best-seller</option>
+            <option value="veggie">Végétarien</option>
+            <option value="spicy">Spicy</option>
+          </select>
+        </label>
+        <label>Prix (F)
+          <input type="number" name="price" min="0" step="100" required>
+        </label>
+        <label>Stock
+          <input type="number" name="stock" min="0" step="1" required value="20">
+        </label>
+        <label>Poids / taille
+          <input type="text" name="weight" placeholder="320 g">
+        </label>
+        <label>Label
+          <input type="text" name="brand" value="Esamaï">
+        </label>
+        <label class="full">Description
+          <textarea name="description" rows="3" placeholder="Ingrédients, sauce..."></textarea>
+        </label>
+        <label class="check">
+          <input type="checkbox" name="active" checked>
+          Visible sur le site
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-close-modal>Annuler</button>
+        <button type="submit" class="btn primary" id="saveProductBtn">Enregistrer</button>
+      </div>
+      <p id="productFormStatus" class="status"></p>
+    </form>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- 1. SDK Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- 2. Configuration Supabase globale -->
+  <script>
+   window.ESAMAI_CONFIG = {
+   supabaseUrl: 'https://etnssupdveppbfdrtmsp.supabase.co',
+   supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnNzdXBkdmVwcGJmZHJ0bXNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NDQ0MTQsImV4cCI6MjEwMzMyMDQxNH0.f9DzbkDEyguQof-gR8WN3w9Tl_M-0S9oftpgxLVMViE',
+   adminEmailHint: 'diagnemohameth139@gmail.com'
+};
+  </script>
+
+  <!-- 3. Scripts Applicatifs -->
+  <script src="js/config.js"></script>
+  <script src="js/supabase-api.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/api.js"></script>
+</body>
+</html>

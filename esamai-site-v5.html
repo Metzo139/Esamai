@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esamaï — Burgers Dakar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">
+      <img src="images/logo-esamai.jpg" alt="Esamaï" class="logo-img">
+    </div>
+    <nav>
+      <ul id="navList">
+        <div class="nav-pill" id="navPill"></div>
+        <li><a href="#" data-page="accueil" class="active">Accueil</a></li>
+        <li><a href="#" data-page="menu">Menu</a></li>
+        <li><a href="#" data-page="commander">Commander</a></li>
+        <li><a href="#" data-page="apropos">À propos</a></li>
+        <li><a href="#" data-page="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ACCUEIL -->
+  <section class="page active" id="accueil">
+    <div class="home-page">
+      <div class="hero">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="hero-brand reveal-hero" id="heroBrand">ESAMAÏ</div>
+            <div class="sticker marker" id="stickerEl">Ouvert 7/7 · 11h–04h</div>
+            <h1 class="hero-title">
+              <span class="line"><span class="inner">Ton ex était</span></span>
+              <span class="line"><span class="inner"><em>lourd.</em> Nos repas</span></span>
+              <span class="line"><span class="inner">ne le sont pas.</span></span>
+            </h1>
+            <p class="hero-sub" id="heroSub">Burgers smash, sandwichs généreux et box gourmandes, faits sur place à Dakar.</p>
+            <div class="hero-ctas" id="heroCtas">
+              <button class="btn btn-primary magnetic" onclick="goTo('commander')">Commander maintenant</button>
+              <button class="btn btn-ghost magnetic" onclick="goTo('menu')">Voir le menu</button>
+            </div>
+            <div class="hero-strip" id="heroStrip">
+              <div class="strip-item"><span class="dot"></span> Route des Mamelles</div>
+              <div class="strip-item"><span class="dot"></span> Sur place · Emporter · Livraison</div>
+              <a class="strip-item strip-link" href="tel:+221786882655"><span class="dot"></span> 78 688 26 55</a>
+            </div>
+          </div>
+          <div class="burger-scene">
+            <div class="photo-orbit" aria-hidden="true"></div>
+            <div class="photo-3d" id="burger3d">
+              <div class="photo-frame">
+                <img src="images/image.png" alt="Équipe Esamaï avec plateau" class="photo-hero-img" width="680" height="680">
+              </div>
+              <div class="photo-sticker marker">100% fait maison</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="hi">SMASH BURGERS</span><span>·</span><span>SANDWICHS</span><span>·</span><span class="hi">BOX & SIDES</span><span>·</span><span>LIVRAISON</span><span>·</span><span class="hi">OUVERT 7/7</span><span>·</span>
+          <span class="hi">SMASH BURGERS</span><span>·</span><span>SANDWICHS</span><span>·</span><span class="hi">BOX & SIDES</span><span>·</span><span>LIVRAISON</span><span>·</span><span class="hi">OUVERT 7/7</span><span>·</span>
+        </div>
+      </div>
+
+      <div class="home-services">
+        <div class="home-service reveal">
+          <span class="home-service-ico">⚡</span>
+          <div>
+            <strong>Commande rapide</strong>
+            <p>Prêt en quelques minutes</p>
+          </div>
+        </div>
+        <div class="home-service reveal">
+          <span class="home-service-ico">🛵</span>
+          <div>
+            <strong>Livraison</strong>
+            <p>Jusque chez toi à Dakar</p>
+          </div>
+        </div>
+        <div class="home-service reveal">
+          <span class="home-service-ico">🔥</span>
+          <div>
+            <strong>Fait maison</strong>
+            <p>Grill & sauces du jour</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-section-head">
+        <div class="eyebrow reveal">LES INCONTOURNABLES</div>
+        <h2 class="section-title reveal display">Best-sellers & promos</h2>
+        <p class="section-desc reveal">Ce que la communauté commande le plus, en ce moment.</p>
+      </div>
+      <div class="highlight-grid">
+        <article class="highlight-card reveal">
+          <div class="highlight-badge">🔥 Best-seller</div>
+          <div class="media-frame">
+            <img src="images/6c970db3dc2c5aeae885a0c89b22db9a.jpg" alt="Le Kassoumaï" class="highlight-img" loading="lazy" width="800" height="600">
+          </div>
+          <div class="highlight-body">
+            <h3>Le Kassoumaï</h3>
+            <p>Double smash steak, cheddar fondu, sauce maison.</p>
+            <div class="highlight-bottom">
+              <span class="price">3 500 F</span>
+              <button class="btn btn-primary btn-sm magnetic" onclick="goTo('commander')">Commander</button>
+            </div>
+          </div>
+        </article>
+        <article class="highlight-card reveal">
+          <div class="highlight-badge mustard">Family Menu</div>
+          <div class="media-frame">
+            <img src="images/6506fbf5f37817d960e0fb4d937035c7.jpg" alt="Family Menu" class="highlight-img" loading="lazy" width="800" height="600">
+          </div>
+          <div class="highlight-body">
+            <h3>Family Menu x4</h3>
+            <p>4 burgers au choix + 2 box de frites + 4 boissons.</p>
+            <div class="highlight-bottom">
+              <span class="price">12 000 F</span>
+              <button class="btn btn-primary btn-sm magnetic" onclick="goTo('commander')">Commander</button>
+            </div>
+          </div>
+        </article>
+        <article class="highlight-card reveal">
+          <div class="highlight-badge violet">Promo</div>
+          <div class="media-frame">
+            <img src="images/31e9acf8abd1794aded0c4c3989071f5.jpg" alt="Menu Midi" class="highlight-img" loading="lazy" width="800" height="600">
+          </div>
+          <div class="highlight-body">
+            <h3>Menu Midi</h3>
+            <p>1 sandwich + frites + boisson, 11h–15h.</p>
+            <div class="highlight-bottom">
+              <span class="price">3 000 F</span>
+              <button class="btn btn-primary btn-sm magnetic" onclick="goTo('commander')">Commander</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="home-section-head">
+        <div class="eyebrow reveal">POURQUOI ESAMAÏ ?</div>
+        <h2 class="section-title reveal display">Ce qui nous distingue</h2>
+      </div>
+      <div class="feature-grid home-features">
+        <div class="feature-card reveal"><div class="feature-icon">🥩</div><h3>Qualité</h3><p>Ingrédients frais, viande sélectionnée, tout préparé sur place.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">⚡</div><h3>Rapidité</h3><p>Commande prête en quelques minutes, sur place ou en livraison.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">🎉</div><h3>Ambiance</h3><p>Un cadre coloré et vivant, pensé pour se retrouver entre amis.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">🍔</div><h3>Générosité</h3><p>Des portions pensées pour rassasier, pas juste grignoter.</p></div>
+      </div>
+
+      <div class="home-flow reveal">
+        <div class="home-flow-head">
+          <div class="eyebrow">SIMPLE</div>
+          <h3 class="display">Commande en 3 étapes</h3>
+        </div>
+        <div class="home-flow-steps">
+          <button class="home-flow-step" onclick="goTo('menu')" type="button">
+            <span class="home-flow-num">1</span>
+            <strong>Choisis</strong>
+            <p>Parcours le menu Favourites</p>
+          </button>
+          <button class="home-flow-step" onclick="goTo('commander')" type="button">
+            <span class="home-flow-num">2</span>
+            <strong>Compose</strong>
+            <p>Ajoute au panier en 1 clic</p>
+          </button>
+          <button class="home-flow-step" onclick="goTo('commander')" type="button">
+            <span class="home-flow-num">3</span>
+            <strong>Envoie</strong>
+            <p>Valide sur WhatsApp</p>
+          </button>
+        </div>
+      </div>
+
+      <div class="cta-banner reveal">
+        <div class="cta-banner-inner">
+          <div>
+            <div class="cta-banner-title display">Ouvert 7/7 · 11h – 04h</div>
+            <p>Route des Mamelles, Dakar — sur place, à emporter ou en livraison.</p>
+          </div>
+          <a href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic whatsapp-btn">Commander sur WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="page" id="menu">
+    <div class="menu-favourites">
+      <div class="menu-favourites-head">
+        <div class="eyebrow reveal">À LA CARTE</div>
+        <h2 class="section-title reveal display">Favourites</h2>
+        <p class="section-desc reveal">Choisis ta catégorie, ajoute au panier, on s’occupe du reste.</p>
+      </div>
+
+      <div class="fav-cat-bar reveal" id="menuTabs" role="tablist" aria-label="Catégories du menu"></div>
+
+      <div class="fav-stage">
+        <span class="fav-float fav-float-1" aria-hidden="true">🥬</span>
+        <span class="fav-float fav-float-2" aria-hidden="true">🌶️</span>
+        <span class="fav-float fav-float-3" aria-hidden="true">🧀</span>
+        <span class="fav-float fav-float-4" aria-hidden="true">🍅</span>
+        <div class="fav-grid" id="menuGrids"></div>
+      </div>
+
+      <div class="fav-actions reveal">
+        <button class="btn btn-primary magnetic" onclick="goTo('commander')">Voir le panier &amp; commander</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMANDER -->
+  <section class="page" id="commander">
+    <div class="order-page">
+      <div class="order-page-head">
+        <div class="eyebrow reveal">COMMANDER</div>
+        <h2 class="section-title reveal display">Compose ta commande</h2>
+        <p class="section-desc reveal">Ajoute tes plats, ajuste les quantités, puis envoie le tout sur WhatsApp.</p>
+
+        <div class="order-steps reveal">
+          <div class="order-step"><span class="order-step-num">1</span><span>Choisis</span></div>
+          <div class="order-step-line" aria-hidden="true"></div>
+          <div class="order-step"><span class="order-step-num">2</span><span>Panier</span></div>
+          <div class="order-step-line" aria-hidden="true"></div>
+          <div class="order-step"><span class="order-step-num">3</span><span>WhatsApp</span></div>
+        </div>
+      </div>
+
+      <div class="order-layout">
+        <div class="order-catalog">
+          <div class="order-cat-bar" id="orderCatBar"></div>
+          <div class="order-list" id="orderList"></div>
+        </div>
+
+        <aside class="cart-panel reveal" id="cartPanel">
+          <div class="cart-panel-head">
+            <h3>Ton panier</h3>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+
+          <div id="cartItems" class="cart-items">
+            <div class="cart-empty-state" id="cartEmpty">
+              <div class="cart-empty-ico">🛒</div>
+              <p>Ton panier est vide</p>
+              <span>Ajoute un plat pour commencer</span>
+            </div>
+          </div>
+
+            <div class="cart-summary">
+            <div class="cart-customer">
+              <label>Ton prénom
+                <input type="text" id="cartCustomerName" placeholder="Ex: Ablaye" autocomplete="name">
+              </label>
+              <label>Téléphone
+                <input type="tel" id="cartCustomerPhone" placeholder="7X XXX XX XX" autocomplete="tel">
+              </label>
+            </div>
+            <div class="cart-total">
+              <span>Total estimé</span>
+              <span id="cartTotal">0 F</span>
+            </div>
+            <p class="cart-note">La commande est enregistrée, le stock mis à jour, puis tu confirmes sur WhatsApp.</p>
+            <button type="button" id="whatsappOrderBtn" class="btn btn-primary magnetic cart-wa-btn">Commander via WhatsApp</button>
+            <button class="btn btn-ghost magnetic cart-clear-btn" id="clearCartBtn" type="button">Vider le panier</button>
+            <p class="cart-status" id="cartStatus"></p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="order-perks reveal">
+        <div class="order-perk"><span>⚡</span> Prêt en quelques minutes</div>
+        <div class="order-perk"><span>🛵</span> Livraison disponible</div>
+        <div class="order-perk"><span>🕖</span> Ouvert 7/7 · 11h–04h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="page" id="apropos">
+    <div class="about-page">
+      <div class="about-page-head">
+        <div class="eyebrow reveal">À PROPOS</div>
+        <h2 class="section-title reveal display">L'histoire d'Esamaï</h2>
+        <p class="section-desc reveal">Né à Dakar, pensé pour les soirées longues et les envies franches.</p>
+      </div>
+
+      <div class="about-hero wrap">
+        <div class="about-copy reveal">
+          <p class="about-lead">Esamaï est né d'une envie simple : des burgers et sandwichs généreux, préparés sur place, dans une ambiance chaleureuse et sans prise de tête.</p>
+          <p>Installé Route des Mamelles, l'équipe sert des plats frais du matin jusque tard dans la nuit. Ce qui a commencé comme un petit spot de quartier est devenu un rendez-vous pour les amateurs de smash et de bonne humeur.</p>
+          <div class="about-cta-row">
+            <button class="btn btn-primary magnetic" onclick="goTo('commander')">Commander</button>
+            <button class="btn btn-ghost magnetic" onclick="goTo('menu')">Voir le menu</button>
+          </div>
+        </div>
+
+        <div class="about-media reveal">
+          <div class="about-media-frame">
+            <img src="images/image.png" alt="L'équipe Esamaï" class="about-img" loading="lazy" width="900" height="720">
+            <div class="about-media-badge marker">Route des Mamelles</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-stats reveal">
+        <div class="about-stat">
+          <strong class="display">7/7</strong>
+          <span>Ouvert tous les jours</span>
+        </div>
+        <div class="about-stat">
+          <strong class="display">11h–04h</strong>
+          <span>Jusque tard le soir</span>
+        </div>
+        <div class="about-stat">
+          <strong class="display">100%</strong>
+          <span>Fait maison</span>
+        </div>
+        <div class="about-stat">
+          <strong class="display">WA</strong>
+          <span>Commande express</span>
+        </div>
+      </div>
+
+      <div class="about-values-head">
+        <div class="eyebrow reveal">NOS VALEURS</div>
+        <h2 class="section-title reveal display">Ce qui guide chaque service</h2>
+      </div>
+
+      <div class="about-values">
+        <article class="about-value reveal">
+          <div class="about-value-ico">🌿</div>
+          <h3>Fraîcheur</h3>
+          <p>Des produits sélectionnés et préparés le jour même, du grill à l’assiette.</p>
+        </article>
+        <article class="about-value reveal">
+          <div class="about-value-ico">🤝</div>
+          <h3>Convivialité</h3>
+          <p>Un accueil chaleureux, pensé pour les groupes, les familles et les late nights.</p>
+        </article>
+        <article class="about-value reveal">
+          <div class="about-value-ico">💪</div>
+          <h3>Exigence</h3>
+          <p>Une recette maîtrisée, des portions généreuses, zéro compromis sur le goût.</p>
+        </article>
+      </div>
+
+      <div class="about-mosaic wrap reveal">
+        <div class="about-mosaic-main">
+          <img src="images/6c970db3dc2c5aeae885a0c89b22db9a.jpg" alt="Smash burger Esamaï" loading="lazy" width="900" height="700">
+          <span class="about-mosaic-label marker">Smash signature</span>
+        </div>
+        <div class="about-mosaic-side">
+          <div class="about-mosaic-tile">
+            <img src="images/6506fbf5f37817d960e0fb4d937035c7.jpg" alt="Sandwich grillé" loading="lazy" width="600" height="400">
+          </div>
+          <div class="about-mosaic-tile">
+            <img src="images/31e9acf8abd1794aded0c4c3989071f5.jpg" alt="Snack maison" loading="lazy" width="600" height="400">
+          </div>
+        </div>
+      </div>
+
+      <div class="about-band reveal">
+        <div class="about-band-inner">
+          <div>
+            <div class="about-band-title display">Passe nous voir</div>
+            <p>Route des Mamelles, Dakar — sur place, à emporter ou en livraison.</p>
+          </div>
+          <a href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic whatsapp-btn">WhatsApp · 78 688 26 55</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="page" id="contact">
+    <div class="contact-page">
+      <div class="contact-page-head">
+        <div class="eyebrow reveal">CONTACT & LOCALISATION</div>
+        <h2 class="section-title reveal display">Parle-nous, on répond vite</h2>
+        <p class="section-desc reveal">Une question, une commande groupée, un partenariat ? Écris-nous ou passe directement.</p>
+      </div>
+
+      <div class="contact-quick reveal">
+        <a class="contact-quick-card magnetic" href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer">
+          <span class="contact-quick-ico">💬</span>
+          <strong>WhatsApp</strong>
+          <span>78 688 26 55</span>
+        </a>
+        <a class="contact-quick-card magnetic" href="tel:+221786882655">
+          <span class="contact-quick-ico">📞</span>
+          <strong>Appeler</strong>
+          <span>78 688 26 55</span>
+        </a>
+        <a class="contact-quick-card magnetic" href="https://instagram.com/esamaiii" target="_blank" rel="noopener noreferrer">
+          <span class="contact-quick-ico">📸</span>
+          <strong>Instagram</strong>
+          <span>@esamaiii</span>
+        </a>
+        <div class="contact-quick-card">
+          <span class="contact-quick-ico">🕖</span>
+          <strong>Horaires</strong>
+          <span>11h – 04h · 7/7</span>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <aside class="contact-info reveal">
+          <div class="contact-info-media">
+            <img src="images/image.png" alt="L'équipe Esamaï" class="team-photo" loading="lazy" width="800" height="500">
+            <span class="contact-info-badge marker">On t’attend</span>
+          </div>
+          <h3>Coordonnées</h3>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-list-label">Adresse</span>
+              <span>Route des Mamelles, Dakar</span>
+            </li>
+            <li>
+              <span class="contact-list-label">Horaires</span>
+              <span>Tous les jours, 11h – 04h</span>
+            </li>
+            <li>
+              <span class="contact-list-label">Téléphone</span>
+              <span><a href="tel:+221786882655">78 688 26 55</a> · <a href="tel:+221781208291">78 120 82 91</a></span>
+            </li>
+            <li>
+              <span class="contact-list-label">Service</span>
+              <span>Sur place · Emporter · Livraison</span>
+            </li>
+            <li>
+              <span class="contact-list-label">Réseaux</span>
+              <span>@esamaiii</span>
+            </li>
+          </ul>
+          <div class="contact-socials">
+            <a href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer" class="social-btn magnetic">WhatsApp</a>
+            <a href="https://instagram.com/esamaiii" target="_blank" rel="noopener noreferrer" class="social-btn magnetic">Instagram</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Route+des+Mamelles,+Dakar,+Sénégal" target="_blank" rel="noopener noreferrer" class="social-btn magnetic">Itinéraire</a>
+          </div>
+        </aside>
+
+        <form class="contact-form-card reveal" id="contactForm">
+          <div class="contact-form-head">
+            <h3>Envoyer un message</h3>
+            <p>On te répond en général dans la journée.</p>
+          </div>
+          <label>Nom
+            <input type="text" name="name" placeholder="Ton nom" required autocomplete="name">
+          </label>
+          <label>Téléphone
+            <input type="tel" name="phone" placeholder="7X XXX XX XX" required autocomplete="tel">
+          </label>
+          <label>Sujet
+            <select name="subject">
+              <option value="commande">Commande / info</option>
+              <option value="groupe">Commande groupée</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="autre">Autre</option>
+            </select>
+          </label>
+          <label>Message
+            <textarea name="message" rows="4" placeholder="Ta demande..." required></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary magnetic contact-submit">Envoyer le message</button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+      </div>
+
+      <div class="contact-map reveal">
+        <div class="contact-map-head">
+          <div>
+            <div class="eyebrow">NOUS TROUVER</div>
+            <h3 class="display">Route des Mamelles</h3>
+          </div>
+          <a
+            class="btn btn-ghost magnetic map-open-btn"
+            href="https://www.google.com/maps/search/?api=1&query=Route+des+Mamelles,+Dakar,+Sénégal"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Ouvrir dans Maps</a>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Esamaï — Route des Mamelles, Dakar"
+            src="https://maps.google.com/maps?q=Route%20des%20Mamelles%2C%20Dakar%2C%20S%C3%A9n%C3%A9gal&z=16&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/logo-esamai.jpg" alt="Esamaï" class="footer-logo">
+      <p class="footer-tagline">Smash burgers & sandwichs généreux, faits sur place à Dakar. Ouvert 7/7.</p>
+      <a href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic footer-cta">Commander sur WhatsApp</a>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Explorer</h4>
+      <ul class="footer-links">
+        <li><a href="#" onclick="goTo('accueil'); return false;">Accueil</a></li>
+        <li><a href="#" onclick="goTo('menu'); return false;">Menu</a></li>
+        <li><a href="#" onclick="goTo('commander'); return false;">Commander</a></li>
+        <li><a href="#" onclick="goTo('apropos'); return false;">À propos</a></li>
+        <li><a href="#" onclick="goTo('contact'); return false;">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Infos</h4>
+      <ul class="footer-meta">
+        <li>Route des Mamelles, Dakar</li>
+        <li>Ouvert 7/7 · 11h – 04h</li>
+        <li><a href="tel:+221786882655">78 688 26 55</a></li>
+        <li><a href="tel:+221781208291">78 120 82 91</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Suivre</h4>
+      <div class="footer-socials">
+        <a href="https://wa.me/221786882655" target="_blank" rel="noopener noreferrer" class="footer-social magnetic">WhatsApp</a>
+        <a href="https://instagram.com/esamaiii" target="_blank" rel="noopener noreferrer" class="footer-social magnetic">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> Esamaï — Tous droits réservés</span>
+    <span class="footer-credit">Prodby xidmavision</span>
+  </div>
+</footer>
+
+
+<script src="js/config.js"></script>
+<script src="js/supabase-api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/api.js"></script>
+
+</body>
+</html>
