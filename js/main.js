@@ -86,6 +86,9 @@ window.addEventListener('load', ()=>{
 });
 window.addEventListener('resize', ()=>{
   movePill(document.querySelector('nav a.is-over') || document.querySelector('nav a.active'));
+  if (window.innerWidth > 760) {
+    navList.style.display = 'none';
+  }
 });
 
 /* Page navigation with transition */
@@ -127,12 +130,15 @@ function goTo(page){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 navLinks.forEach(a=>{
-  a.addEventListener('click', e=>{ e.preventDefault(); goTo(a.dataset.page); });
+  a.addEventListener('click', e=>{ e.preventDefault(); goTo(a.dataset.page);
+    if (navList.style.display === 'flex') {
+      navList.style.display = 'none';
+    }
+  });
   a.addEventListener('mouseenter', ()=>{
     setNavOver(a);
     movePill(a);
   });
-});
 navListEl.addEventListener('mouseleave', ()=>{
   const active = document.querySelector('nav a.active');
   setNavOver(null);

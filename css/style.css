@@ -2,11 +2,11 @@
     --bg: #100C16;
     --bg-2: #1B1522;
     --bg-3: #241B2C;
-    --orange: #900000;
-    --orange-2: #900000;
+    --orange: #FF5A1F;
+    --orange-2: #FF7A3D;
     --violet: #8B3DFF;
     --violet-2: #5E1FCC;
-    --mustard: #900000;
+    --mustard: #FFC933;
     --cream: #FBF3E7;
     --cream-dim: #B9AEB3;
     --line: rgba(251,243,231,0.10);
@@ -279,7 +279,7 @@
   }
   .fav-diet.veggie{ color:#6BCB77; }
   .fav-diet.spicy{ color:var(--orange-2); }
-  .fav-diet.meat{ color:#FF5A1F; }
+  .fav-diet.meat{ color:var(--orange); }
   .fav-diet.bestseller{ color:var(--mustard); }
 
   .fav-media{
