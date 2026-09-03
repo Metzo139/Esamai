@@ -94,14 +94,30 @@ function goTo(page){
   const next = document.getElementById(page);
   if(current === next) return;
 
-  gsap.to(current, { opacity:0, y:-16, duration:0.3, onComplete:()=>{
-    current.classList.remove('active');
-    current.style.opacity=''; current.style.transform='';
-    next.classList.add('active');
-    gsap.fromTo(next, { opacity:0, y:16 }, { opacity:1, y:0, duration:0.4 });
-    ScrollTrigger.refresh();
-    animateReveals(next);
-  }});
+  const run = ()=>{
+    gsap.to(current, { opacity:0, y:-16, duration:0.28, onComplete:()=>{
+      current.classList.remove('active');
+      current.style.opacity=''; current.style.transform='';
+      next.classList.add('active');
+      gsap.fromTo(next, { opacity:0, y:18, scale:0.985 }, { opacity:1, y:0, scale:1, duration:0.45, ease:'power3.out' });
+      ScrollTrigger.refresh();
+      animateReveals(next);
+    }});
+  };
+
+  const wipe = document.querySelector('.page-wipe');
+  if(wipe && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const bars = wipe.querySelectorAll('span');
+    wipe.classList.add('is-on');
+    gsap.timeline({ onComplete:()=> wipe.classList.remove('is-on') })
+      .set(bars, { scaleY:0, transformOrigin:'top' })
+      .to(bars, { scaleY:1, duration:0.28, stagger:0.05, ease:'power3.in' })
+      .add(run)
+      .set(bars, { transformOrigin:'bottom' })
+      .to(bars, { scaleY:0, duration:0.34, stagger:0.06, ease:'power3.out' });
+  } else {
+    run();
+  }
 
   navLinks.forEach(a=>a.classList.remove('active'));
   const link = document.querySelector(`nav a[data-page="${page}"]`);
@@ -268,6 +284,7 @@ function addToCart(id, btn){
   }
   cart[id] = nextQty;
   renderCart();
+  document.dispatchEvent(new CustomEvent('esamai:add', { detail: { id, btn } }));
   if(btn){
     btn.classList.add('added');
     btn.textContent = 'Ajouté ✓';

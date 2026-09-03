@@ -1,0 +1,80 @@
+/* Esamaï motion layer */
+.intro{
+  position:fixed; inset:0; z-index:10000; pointer-events:none;
+  display:grid; place-items:center; overflow:hidden;
+}
+.intro.is-on{ pointer-events:auto; }
+.intro-panels{ position:absolute; inset:0; display:flex; flex-direction:column; }
+.intro-panel{ flex:1; transform:translateY(0); }
+.intro-panel.p1{ background:#FF5A1F; }
+.intro-panel.p2{ background:#FFC933; }
+.intro-panel.p3{ background:#8B3DFF; }
+.intro-word{
+  position:relative; z-index:2;
+  font-family:'Anton', sans-serif;
+  font-size:clamp(56px, 14vw, 140px);
+  letter-spacing:2px; color:#100C16;
+  display:flex; gap:0.04em; line-height:1;
+}
+.intro-word span{ display:inline-block; transform-origin:50% 100%; }
+
+.page-wipe{
+  position:fixed; inset:0; z-index:9990; pointer-events:none;
+  display:flex; flex-direction:column;
+}
+.page-wipe span{
+  flex:1; transform:scaleY(0); transform-origin:top;
+}
+.page-wipe span:nth-child(1){ background:#FF5A1F; }
+.page-wipe span:nth-child(2){ background:#FFC933; }
+.page-wipe span:nth-child(3){ background:#8B3DFF; }
+
+.cursor-dot{
+  position:fixed; width:8px; height:8px; border-radius:50%;
+  background:#FF7A3D; pointer-events:none; z-index:9998;
+  mix-blend-mode:difference; opacity:0.55;
+  transform:translate(-50%,-50%);
+}
+
+.fx-layer{ position:fixed; inset:0; pointer-events:none; z-index:9997; overflow:hidden; }
+.fx-burst{
+  position:absolute; font-size:22px; will-change:transform,opacity;
+  filter:drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+}
+
+.hero-bits{ position:absolute; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+.hero-bit{
+  position:absolute; font-size:28px; opacity:0.85;
+  animation: bitFloat 7s ease-in-out infinite;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,0.35));
+}
+@keyframes bitFloat{
+  0%,100%{ transform:translateY(0) rotate(-8deg); }
+  50%{ transform:translateY(-18px) rotate(10deg); }
+}
+
+.btn.btn-primary, .fav-add, .cart-wa-btn{
+  background-size:220% 100%;
+}
+.btn.btn-primary{
+  background-image:linear-gradient(110deg, var(--orange) 0%, #FF8A4A 45%, var(--orange) 90%);
+  animation: btnSheen 3.2s linear infinite;
+}
+@keyframes btnSheen{
+  0%{ background-position:100% 0; }
+  100%{ background-position:-100% 0; }
+}
+
+.hero-brand .ch{
+  display:inline-block; will-change:transform;
+}
+
+.page-wipe.is-on{ pointer-events:auto; }
+
+@media (hover:none){
+  .cursor-dot{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .intro, .page-wipe, .cursor-dot, .hero-bits, .fx-layer{ display:none !important; }
+  .btn.btn-primary{ animation:none; }
+}
