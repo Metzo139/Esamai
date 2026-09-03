@@ -75,7 +75,7 @@
   }
   nav a:hover,
   nav a.is-over,
-  nav a.active{ color:var(--bg); }
+  nav a.active{ color:var(--cream); }
   nav ul:hover a.active:not(:hover):not(.is-over){ color:var(--cream-dim); }
   .nav-pill{
     position:absolute; top:0; left:0; height:38px; width:80px; border-radius:999px; background:var(--mustard);
