@@ -2,11 +2,11 @@
     --bg: #100C16;
     --bg-2: #1B1522;
     --bg-3: #241B2C;
-    --orange: #FF5A1F;
-    --orange-2: #FF7A3D;
+    --orange: #900000;
+    --orange-2: #900000;
     --violet: #8B3DFF;
     --violet-2: #5E1FCC;
-    --mustard: #FFC933;
+    --mustard: #900000;
     --cream: #FBF3E7;
     --cream-dim: #B9AEB3;
     --line: rgba(251,243,231,0.10);
@@ -278,7 +278,7 @@
     border:1.5px solid currentColor;
   }
   .fav-diet.veggie{ color:#6BCB77; }
-  .fav-diet.spicy{ color:#FF5A5A; }
+  .fav-diet.spicy{ color:var(--orange-2); }
   .fav-diet.meat{ color:#FF5A1F; }
   .fav-diet.bestseller{ color:var(--mustard); }
 
@@ -295,7 +295,7 @@
 
   .fav-name{ font-size:16px; font-weight:700; margin-bottom:2px; position:relative; z-index:1; }
   .fav-sub{ font-size:12.5px; color:var(--cream-dim); margin-bottom:14px; line-height:1.4; position:relative; z-index:1;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.8em;
+    display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.8em;
   }
   .fav-bottom{
     margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -594,7 +594,7 @@
   .tag-pill{ font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:999px; background:var(--bg-3); color:var(--cream-dim); }
   .tag-pill.bestseller{ background:var(--orange); color:var(--cream); }
   .tag-pill.veggie{ background:#4A8F4C; color:var(--cream); }
-  .tag-pill.spicy{ background:#C22B2B; color:var(--cream); }
+  .tag-pill.spicy{ background:var(--orange); color:var(--cream); }
   .menu-card-tags{ display:flex; gap:6px; flex-wrap:wrap; }
 
   /* ORDER / CART */
@@ -658,7 +658,7 @@
   .order-item-name{ font-size:15px; font-weight:700; margin-bottom:3px; }
   .order-item-desc{
     font-size:12.5px; color:var(--cream-dim); line-height:1.4;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
   }
   .order-item-price{ font-family:'Anton',sans-serif; color:var(--mustard); font-size:15px; margin-top:6px; }
   .order-item-actions{ display:flex; flex-direction:column; align-items:center; gap:6px; }
@@ -746,7 +746,7 @@
   .cart-status{
     min-height:18px; margin-top:10px; font-size:12.5px; font-weight:600; color:var(--mustard);
   }
-  .cart-status.is-error{ color:#FF6B6B; }
+  .cart-status.is-error{ color:var(--orange); }
   .cart-status.is-ok{ color:#6BCB77; }
 
   .cart-wa-btn{
